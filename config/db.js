@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 
 const dados_db = {
-  envi: 'deve',
+  envi: 'prod',
   deve: {
     dbNa: 'getlogclub',
     host: 'localhost',
