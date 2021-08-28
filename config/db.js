@@ -12,7 +12,7 @@ const dados_db = {
     dbNa: 'getlogclub',
     host: 'localhost',
     user: 'root',
-    pass: 'GetLogClub02'
+    pass: 'GetLogClub02_$'
   },
 }
 
@@ -27,8 +27,8 @@ const c_db = isdev ? { ...dados_db.deve } : { ...dados_db.prod }
 const sequelize = new Sequelize(c_db.dbNa, c_db.user, c_db.pass, {
   dialect: 'mysql',
   host: c_db.host,
-  port: '3306',
-  socketPath: '/var/run/mysqld/mysqld.sock',
+  // port: '3306',
+  // socketPath: '/var/run/mysqld/mysqld.sock',
   define: {
     timestamps: true,
   }
@@ -45,3 +45,4 @@ const fn = async () => {
 fn()
 
 module.exports = sequelize
+
