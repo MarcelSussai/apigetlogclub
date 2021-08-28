@@ -12,7 +12,7 @@ const dados_db = {
     dbNa: 'getlogclub',
     host: 'localhost',
     user: 'root',
-    pass: 'GetLogClub02$'
+    pass: 'GetLogClub02'
   },
 }
 
