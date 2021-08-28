@@ -10,7 +10,7 @@ const dados_db = {
   },
   prod: {
     dbNa: 'getlogclub',
-    host: 'localhost',
+    host: 'localhost:3306',
     user: 'root',
     pass: 'GetLogClub02$'
   },
