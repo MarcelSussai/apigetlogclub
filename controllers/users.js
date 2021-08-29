@@ -3,7 +3,7 @@ const { hash, compare }   = require('bcryptjs')
 const { sign }            = require('jsonwebtoken')
 
 const findAll = (req, res) => {
-  User.findAll().then((result) => res.json(result))
+  User.findAll().then((result) => res.json({...result, id_user_permission: req.idUser}))
 }
 
 const findUser = (req, res) => {
@@ -12,7 +12,7 @@ const findUser = (req, res) => {
 
 const addUser = async (req, res) => {
 
-  const { name, email, pass } = req.body
+  const { name, email, pass, admin } = req.body
 
   if (!email) { return res.json({error: 'email não fornecido'}) }
 
@@ -26,6 +26,7 @@ const addUser = async (req, res) => {
           name: name,
           email: email,
           pass: passHash,
+          admin: admin || "0"
         }).then((result) => res.json(result))
       }
     }

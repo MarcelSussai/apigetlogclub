@@ -37,6 +37,10 @@ const User = db.define('User', {
   nasc: {
     type: DataTypes.DATE,
     allowNull: true
+  },
+  admin: {
+    type: DataTypes.STRING,
+    allowNull: true
   }
 })
 
