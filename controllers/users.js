@@ -67,7 +67,7 @@ const authUser = async (req, res) => {
 
   const token = sign({
     email: user.email
-  }, 'afbd8086a8e413cfdb934be664968c99', {
+  }, process.env.JWT_KEY, {
     subject: user.idUser.toString(),
     expiresIn: '1d'
   })

@@ -6,7 +6,7 @@ const ensureAuth = (req, res, next) => {
   if(!authToken) { return res.json({error: 'usuário não autorizado'}) }
   const [, token] = authToken.split(' ')
   try {
-    const { sub } = verify(token, 'afbd8086a8e413cfdb934be664968c99')
+    const { sub } = verify(token, process.env.JWT_KEY)
     req.idUser = sub
     return next()
   } catch(err) {

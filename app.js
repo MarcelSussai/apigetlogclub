@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express     = require('express')
 const cors        = require('cors')
 const db          = require('./config/db.js')
@@ -5,7 +6,7 @@ const Loader      = require('./config/modelsLoader.js')
 const routes      = require('./routes.js')
 
 const app = express()
-const port = 3001
+const port = process.env.APP_POR
 
 Loader()
 app.use(cors())

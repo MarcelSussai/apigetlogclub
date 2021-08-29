@@ -1,28 +1,29 @@
 const Sequelize     = require('sequelize')
 
-const dados_db = {
-  envi: 'prod',
-  deve: {
-    dbNa: 'getlogclub',
-    host: 'localhost',
-    user: 'root',
-    pass: 'root'
-  },
-  prod: {
-    dbNa: 'getlogclub',
-    host: 'localhost',
-    user: 'root',
-    pass: 'GetLogClub02_$'
-  },
-}
 
-const isdev = dados_db.envi === 'deve'
+// const dados_db = {
+//   envi: 'prod',
+//   deve: {
+//     dbNa: 'getlogclub',
+//     host: 'localhost',
+//     user: 'root',
+//     pass: 'root'
+//   },
+//   prod: {
+//     dbNa: 'getlogclub',
+//     host: 'localhost',
+//     user: 'root',
+//     pass: 'GetLogClub02_$'
+//   },
+// }
 
-const c_db = isdev ? { ...dados_db.deve } : { ...dados_db.prod }
+// const isdev = dados_db.envi === 'deve'
 
-const sequelize = new Sequelize(c_db.dbNa, c_db.user, c_db.pass, {
+// const c_db = isdev ? { ...dados_db.deve } : { ...dados_db.prod }
+
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
   dialect: 'mysql',
-  host: c_db.host,
+  host: process.env.DB_HOST,
   define: {
     timestamps: true,
   }
