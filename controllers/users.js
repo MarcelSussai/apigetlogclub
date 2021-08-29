@@ -72,7 +72,7 @@ const authUser = async (req, res) => {
     expiresIn: '1d'
   })
 
-  res.json(token)
+  res.json({email: email, token})
 }
 
 module.exports = { findAll, addUser, findUser, updateUser, authUser }
