@@ -41,7 +41,8 @@ const User = db.define('User', {
   admin: {
     type: DataTypes.STRING,
     allowNull: true
-  }
+  },
+  
 })
 
 console.log(User === db.models.User)

@@ -11,7 +11,7 @@ routes.get('/', (req, res) => {
   return res.json({ola: 'mundo, essa api funciona!'})
 })
 
-routes.get('/users', ensureAuth, findAll)
+routes.get('/users', findAll)
 routes.get('/users/:id', ensureAuth, findUser)
 routes.put('/users/:id', updateUser)
 routes.post('/adduser', addUser)
