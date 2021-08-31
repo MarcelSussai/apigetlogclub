@@ -13,7 +13,7 @@ const socket = io(httpServer, {
     origin: "*",
     methods: ["GET", "POST"]
   },
-  transports: ["websocket", "polling"],
+  transports: ["polling", "websocket"],
 })
 const port = process.env.APP_POR
 
