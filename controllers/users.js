@@ -12,7 +12,7 @@ const findUser = (req, res) => {
 
 const addUser = async (req, res) => {
 
-  const { name, email, pass, admin } = req.body
+  const { name, email, pass, admin, rg, cpf, tel1, tel2, nasc } = req.body
 
   if (!email) { return res.json({error: 'email não fornecido'}) }
 
@@ -20,17 +20,22 @@ const addUser = async (req, res) => {
     async (result) => {
       if (result) { res.json({error: 'usuário já existe'}) }
       else {
-        const passHash = await hash(pass, 8)
-  
+        const passHash = await hash(pass, 8)  
         User.create({
           name: name,
           email: email,
           pass: passHash,
-          admin: admin || "0"
+          admin: admin || "0",
+          rg: rg || "",
+          cpf: cpf || "",
+          tel1: tel1 || "",
+          tel2: tel2 || "",
+          nasc: new Date(),
         }).then((result) => res.json(result))
       }
     }
   )
+
 }
 
 const updateUser = async (req, res) => {

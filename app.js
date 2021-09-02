@@ -16,11 +16,11 @@ const socket = io(httpServer, {
   transports: ["polling", "websocket"],
 })
 const port = process.env.APP_POR
+Loader()
 
 app.use(cors());
 
 
-Loader()
 app.use(express.json())
 app.use(routes)
 
@@ -29,8 +29,9 @@ db.sync(() => console.log('[CONECTADO] - banco de dados'))
 socket.on('connect', (data) => {
   console.log('[CONECTADO]' , data.id);
   data.on('teste.one', (dado) => {
-    console.log(`[SOCKET - ${data.id}] - teste.one => `, dado)
-    socket.sockets.emit('teste.one', `[SERVER] - user => ${dado.id}`)
+    console.log(`[SOCKET - ${data.id}] - teste.one => `, dado.id)
+    socket.sockets.emit('teste.one', `${dado.id}`)
+    socket.to(dado.socketId).emit('teste.one', 'Seu id foi recebido')
   })
   
   data.on('disconnect', () => console.log(`[SOCKET - ${data.id}] - DESCONECTADO`))

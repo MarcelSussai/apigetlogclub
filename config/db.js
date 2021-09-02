@@ -9,7 +9,11 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST,
     define: {
       timestamps: true,
-    }
+    },
+    dialectOptions: {
+      useUTC: false //for reading from database
+    },
+    timezone: '-03:00'
 })
 
 const fn = async () => {
