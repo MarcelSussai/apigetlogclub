@@ -2,20 +2,24 @@ const User                = require('../models/user')
 const { hash, compare }   = require('bcryptjs')
 const { sign }            = require('jsonwebtoken')
 
-const findAll = (req, res) => {
-  User.findAll().then((result) => res.json({...result, id_user_permission: req.idUser}))
-}
+
+
+const findAll = (req, res) => User.findAll().then((result) => res.json({...result}))
+
+
 
 const findUser = (req, res) => {
   User.findByPk(req.params.id).then((result) => res.json(result))
 }
 
+
+
 const addUser = async (req, res) => {
-
-  const { name, email, pass, admin, rg, cpf, tel1, tel2, nasc } = req.body
-
+  const { 
+    name, email, pass, admin, rg, cpf, tel1, tel2, nasc,
+    rua, numero, obs, bairro, cidade, estado, cep,
+  } = req.body
   if (!email) { return res.json({error: 'email não fornecido'}) }
-
   User.findOne({ where: { email: email } }).then(
     async (result) => {
       if (result) { res.json({error: 'usuário já existe'}) }
@@ -30,13 +34,21 @@ const addUser = async (req, res) => {
           cpf: cpf || "",
           tel1: tel1 || "",
           tel2: tel2 || "",
-          nasc: new Date(),
+          nasc: nasc || new Date(),
+          rua: rua || "",
+          numero: numero || "",
+          obs: obs || "",
+          bairro: bairro || "",
+          cidade: cidade || "",
+          estado: estado || "",
+          cep: cep || "",
         }).then((result) => res.json(result))
       }
     }
   )
-
 }
+
+
 
 const updateUser = async (req, res) => {
   await User.update(
@@ -52,6 +64,8 @@ const updateUser = async (req, res) => {
   )
   User.findByPk(req.params.id).then((result) => res.json(result))
 }
+
+
 
 const authUser = async (req, res) => {
   const { email, pass } = req.body
@@ -69,7 +83,6 @@ const authUser = async (req, res) => {
   
   if (!passMatch) { return res.json({error: messageInvalid}) }
   // console.log(passMatch);
-  
 
   const token = sign({
     email: user.email
@@ -80,5 +93,7 @@ const authUser = async (req, res) => {
 
   res.json({email: email, token})
 }
+
+
 
 module.exports = { findAll, addUser, findUser, updateUser, authUser }
