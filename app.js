@@ -13,7 +13,7 @@ const io                          = require('socket.io')(httpServer, {
       origin: "*",
       methods: ["GET", "POST"]
     },
-    transports: ["websocket", "polling"],
+    transports: ["polling", "websocket"],
   })
 
 
