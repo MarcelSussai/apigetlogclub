@@ -8,6 +8,7 @@ const { logFnConsole }            = require('./utils/logFunction.js')
 
 const app                         = express()
 const httpServer                  = require('http').createServer(app)
+
 const io                          = require('socket.io')(httpServer, {
     cors: {
       origin: "*",
@@ -16,37 +17,14 @@ const io                          = require('socket.io')(httpServer, {
     transports: ["polling", "websocket"],
   })
 
-
-
-// const socket = io(httpServer, {
-//   cors: {
-//     origin: "*",
-//     methods: ["GET", "POST"]
-//   },
-//   transports: ["websocket", "polling"],
-// })
 const port = process.env.APP_POR
 Loader()
 
 app.use(cors());
 app.use(express.json())
 
-
-
 db.sync(() => console.log('[CONECTADO] - banco de dados'))
 
-// socket.on('connect', (data) => {
-//   // console.log('[CONECTADO]' , data.id);
-//   data.on('teste.one', (dado) => {
-//     // console.log(`[SOCKET - ${data.id}] - teste.one => `, dado.id)
-//     socket.sockets.emit('teste.one', `${dado.id}`)
-//     // socket.to(dado.socketId).emit('teste.one', 'Seu id foi recebido')
-//   })
-//   data.on('disconnect', () => console.log(`[SOCKET - ${data.id}] - DESCONECTADO`))
-// })
-// ________________________________________________________________
-
-// ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 io.on('connection', (socket) => {
   logFnConsole(`[CONEXÃO SOCKET IO] - ID DO SOCKET => ${socket.id}`)
 

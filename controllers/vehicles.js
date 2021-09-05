@@ -1,3 +1,4 @@
+const User = require("../models/user");
 const Vehicle = require("../models/vehicle");
 
 
@@ -10,20 +11,37 @@ const addVehicle = async (req, res) => {
       error: 'Usuário dono do veículo não fornecido, favor fornecer o campo: UserIdUser'
     })
   } else {
-    Vehicle.findOne({where: {UserIdUser: UserIdUser}}).then(
-      async (result) => {
-        if (result) { res.json({error: 'Já tem um cadastro de veículo para esse usuário'}) }
-        else {
-          Vehicle.create({
-            ano: ano || "",
-            modelo: modelo || "",
-            placa: placa || "",
-            cor: cor || "",
-            UserIdUser: UserIdUser
-          }).then((result) => res.json(result))
+
+    User.findOne({where: {idUser: UserIdUser}}).then(
+      (ruser) => {
+        // console.log(ruser);
+        if (ruser) {
+          Vehicle.findOne({where: {UserIdUser: UserIdUser}}).then(
+            (result) => {
+              // console.log(result);
+              if (result) {
+                return res.json({error: 'Já tem um cadastro de veículo para esse usuário'}) 
+              }
+              else {
+                Vehicle.create({
+                  ano: ano || "",
+                  modelo: modelo || "",
+                  placa: placa || "",
+                  cor: cor || "",
+                  UserIdUser: UserIdUser
+                }).then((r) => res.json(r))
+              }
+            }
+          )
+        } else { 
+          res.json({error: 'Usuário não existe para ter um veículo cadastrado, favor cadastrar um usuário, ou possiveis erros do uso da api!'})
         }
       }
     )
+
+
+
+
   }
 }
 
