@@ -20,11 +20,15 @@ const ImageRestaurant = db.define('ImageRestaurant',{
     type: DataTypes.STRING,
     alowNull: false,
   },
-  desc: {
+  nomeArquivo: {
     type: DataTypes.STRING,
     alowNull: false,
   },
-  dados: {
+  obs: {
+    type: DataTypes.STRING,
+    alowNull: true,
+  },
+  b64: {
     type: DataTypes.BLOB('long'),
     alowNull: false,
   }

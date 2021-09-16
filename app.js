@@ -21,7 +21,8 @@ const port = process.env.APP_POR
 Loader()
 
 app.use(cors());
-app.use(express.json())
+app.use(express.json({ limit: '800mb' }))
+
 
 db.sync(() => console.log('[CONECTADO] - banco de dados'))
 

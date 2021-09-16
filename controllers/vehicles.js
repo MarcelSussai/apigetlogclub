@@ -34,7 +34,7 @@ const addVehicle = async (req, res) => {
             }
           )
         } else { 
-          res.json({error: 'Usuário não existe para ter um veículo cadastrado, favor cadastrar um usuário, ou possiveis erros do uso da api!'})
+          res.json({error: 'Usuário não existe para ter um veículo cadastrado, favor cadastrar um usuário'})
         }
       }
     )
