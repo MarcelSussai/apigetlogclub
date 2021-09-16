@@ -20,7 +20,7 @@ const io                          = require('socket.io')(httpServer, {
 const port = process.env.APP_POR
 Loader()
 
-app.use(cors());
+app.use(cors({origin: '*'}));
 app.use(express.json({ limit: '800mb' }))
 
 
