@@ -23,7 +23,7 @@ routes.put('/users/:id', updateUser)
 routes.get('/findAllRestaurant', findAllRestaurant)
 routes.post('/adduser', addUser)
 routes.post('/addVehicle', addVehicle)
-routes.post('/addImageUser', cors(), addImageUser)
+routes.post('/addImageUser', addImageUser)
 routes.post('/addRestaurant', addRestaurant)
 routes.post('/login', authUser)
 
