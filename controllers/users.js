@@ -91,7 +91,7 @@ const authUser = async (req, res) => {
     expiresIn: '1d'
   })
 
-  res.json({email: email, token})
+  res.json({email: email, token: token})
 }
 
 
