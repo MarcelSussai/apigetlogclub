@@ -19,12 +19,12 @@ const addUser = async (req, res) => {
     name, email, pass, admin, rg, cpf, tel1, tel2, nasc,
     rua, numero, obs, bairro, cidade, estado, cep,
   } = req.body
-  if (!email) { return res.json({error: 'email não fornecido'}) }
+  if (!email) { return res.status(401).json({error: 'email não fornecido'}) }
   User.findOne({ where: { email: email } }).then(
     async (result) => {
-      if (result) { res.json({error: 'usuário já existe'}) }
+      if (result) { res.status(401).json({error: 'usuário já existe'}) }
       else {
-        const passHash = await hash(pass, 8)  
+        const passHash = await hash(pass, 8)
         User.create({
           name: name,
           email: email,
@@ -70,28 +70,27 @@ const updateUser = async (req, res) => {
 const authUser = async (req, res) => {
   const { email, pass } = req.body
 
-  const messageInvalid = 'email ou senha não fornecido ou incorretos'
+  const messageInvalid = 'email ou senha não fornecidos ou incorretos'
 
-  const user = await User.findOne({ where: { email: email } }).then(
-    (result) => {
+  if (!email) { return res.json({error: messageInvalid}) }
+  if (!pass) { return res.json({error: messageInvalid}) }
+
+  await User.findOne({ where: { email: email } }).then(
+    async (result) => {
       if (!result) { return res.json({error: messageInvalid}) }
-      return result
+      const passMatch = await compare(pass, result.pass)
+      if (!passMatch) { return res.json({error: messageInvalid}) }
+
+      const token = sign({
+        email: result.email
+      }, process.env.JWT_KEY, {
+        subject: result.idUser.toString(),
+        expiresIn: '1d'
+      })
+
+      res.json({email: email, token: token, name: result.name, admin: result.admin})
     }
   )
-  // console.log(user);
-  const passMatch = await compare(pass, user.pass)
-  
-  if (!passMatch) { return res.json({error: messageInvalid}) }
-  // console.log(passMatch);
-
-  const token = sign({
-    email: user.email
-  }, process.env.JWT_KEY, {
-    subject: user.idUser.toString(),
-    expiresIn: '1d'
-  })
-
-  res.json({email: email, token: token})
 }
 
 

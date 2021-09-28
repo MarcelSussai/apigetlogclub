@@ -35,7 +35,7 @@ const Restaurant = db.define('Restaurants', {
   },
   obs: {
     type: DataTypes.STRING,
-    alowNull: false,
+    alowNull: true,
   },
   bairro: {
     type: DataTypes.STRING,
@@ -50,6 +50,10 @@ const Restaurant = db.define('Restaurants', {
     alowNull: false,
   },
   cep: {
+    type: DataTypes.STRING,
+    alowNull: false,
+  },
+  code: {
     type: DataTypes.STRING,
     alowNull: false,
   }
